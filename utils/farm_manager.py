@@ -1,6 +1,5 @@
 from datetime import datetime
-from utils.database import 
-Database
+from utils.database import Database
 
 farms_db = Database("database/farms.csv")
 
@@ -20,7 +19,6 @@ def create_farm(user_id, farm_name, location, size_hectares, main_crop):
     }
 
     farms_db.insert(farm)
-
     return True, "Farm created successfully"
 
 
@@ -28,7 +26,7 @@ def get_user_farms(user_id):
     df = farms_db.load()
 
     if df.empty:
-        return []
+        return df
 
     return df[df["user_id"] == user_id]
 
