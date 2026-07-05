@@ -1,3 +1,5 @@
+from utils.report_generator import generate_pdf_report
+import os
 import streamlit as st
 from expert_system.inference import CropExpertSystem
 
