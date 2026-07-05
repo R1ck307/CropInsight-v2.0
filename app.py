@@ -1,3 +1,4 @@
+from utils.history import add_record, load_history
 from utils.report_generator import generate_pdf_report
 import os
 import streamlit as st
