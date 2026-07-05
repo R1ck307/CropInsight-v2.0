@@ -1,35 +1,71 @@
 CROP_RULES = {
     "maize": {
-        "leaf_spot": {
-            "symptoms": ["brown spots", "yellow edges", "leaf damage"],
-            "treatment": "Apply fungicide and remove infected leaves",
-            "severity": "medium"
-        },
-        "rust": {
-            "symptoms": ["orange pustules", "leaf drying", "spots spreading"],
-            "treatment": "Use resistant seeds and fungicide spray",
+        "leaf_rust": {
+            "symptoms": ["orange pustules", "rust spots", "yellowing leaves"],
+            "treatment": "Use resistant varieties and apply fungicide spray",
             "severity": "high"
+        },
+        "fall_armyworm": {
+            "symptoms": ["holes in leaves", "frass", "damaged whorl"],
+            "treatment": "Apply biological control or recommended insecticides",
+            "severity": "high"
+        },
+        "leaf_blight": {
+            "symptoms": ["brown lesions", "dry leaves", "spread spots"],
+            "treatment": "Remove infected leaves and apply fungicide",
+            "severity": "medium"
         }
     },
 
     "tomato": {
-        "blight": {
-            "symptoms": ["black spots", "wilting", "stem rot"],
-            "treatment": "Use copper-based fungicide and remove infected plants",
+        "early_blight": {
+            "symptoms": ["dark concentric spots", "yellow leaves", "leaf drop"],
+            "treatment": "Use copper fungicide and crop rotation",
             "severity": "high"
         },
-        "leaf_curl": {
-            "symptoms": ["curled leaves", "yellowing", "stunted growth"],
-            "treatment": "Control aphids and improve watering",
+        "fusarium_wilt": {
+            "symptoms": ["wilting", "yellowing leaves", "stunted growth"],
+            "treatment": "Improve soil drainage and use resistant varieties",
+            "severity": "high"
+        },
+        "blossom_end_rot": {
+            "symptoms": ["black bottom fruit", "fruit rot", "calcium deficiency"],
+            "treatment": "Improve calcium supply and watering consistency",
             "severity": "medium"
         }
     },
 
     "beans": {
         "anthracnose": {
-            "symptoms": ["dark lesions", "sunken spots", "pod damage"],
-            "treatment": "Crop rotation and fungicide application",
+            "symptoms": ["dark sunken lesions", "pod spots", "stem damage"],
+            "treatment": "Use certified seeds and fungicide treatment",
             "severity": "high"
+        },
+        "rust": {
+            "symptoms": ["rust-colored spots", "leaf drying", "defoliation"],
+            "treatment": "Apply sulfur-based fungicide",
+            "severity": "medium"
+        }
+    },
+
+    "rice": {
+        "blast": {
+            "symptoms": ["diamond-shaped lesions", "leaf drying", "neck rot"],
+            "treatment": "Use resistant varieties and fungicide spray",
+            "severity": "high"
+        },
+        "sheath_blight": {
+            "symptoms": ["lesions on sheath", "rot at base", "plant collapse"],
+            "treatment": "Improve spacing and apply fungicide",
+            "severity": "high"
+        }
+    },
+
+    "sorghum": {
+        "grain_mold": {
+            "symptoms": ["moldy grains", "discoloration", "poor yield"],
+            "treatment": "Harvest early and improve drying methods",
+            "severity": "medium"
         }
     }
 }
