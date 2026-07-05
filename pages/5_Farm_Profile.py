@@ -9,7 +9,7 @@ if "user" not in st.session_state:
 
 user = st.session_state["user"]
 
-st.subheader("➕ Create New Farm")
+st.subheader("Create Farm")
 
 farm_name = st.text_input("Farm Name")
 location = st.text_input("Location")
@@ -27,16 +27,14 @@ if st.button("Create Farm"):
 
     if success:
         st.success(msg)
-    else:
-        st.error(msg)
 
 st.divider()
 
-st.subheader("📋 Your Farms")
+st.subheader("Your Farms")
 
 farms = get_user_farms(user["id"])
 
 if farms.empty:
-    st.info("No farms created yet.")
+    st.info("No farms yet.")
 else:
     st.dataframe(farms)
