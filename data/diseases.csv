@@ -1,1 +1,11 @@
 disease_id,name,affected_crop,symptoms,severity
+1,Maize Leaf Blight,Maize,Yellow leaf spots and drying,High
+2,Maize Rust,Maize,Orange pustules on leaves,Medium
+3,Rice Blast,Rice,Lesions on leaves and stems,Critical
+4,Cassava Mosaic Disease,Cassava,Leaf distortion and yellow patches,High
+5,Bean Rust,Beans,Rust-colored spots on leaves,Medium
+6,Tomato Late Blight,Tomato,Black lesions and rotting fruit,Critical
+7,Tomato Mosaic Virus,Tomato,Leaf mottling and curling,High
+8,Banana Fusarium Wilt,Banana,Wilting and yellow leaves,Critical
+9,Cotton Bollworm,Cotton,Chewed bolls and holes,High
+10,Coffee Leaf Rust,Coffee,Orange leaf powder spots,High
