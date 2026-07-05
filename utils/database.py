@@ -14,6 +14,7 @@ class Database:
 
     if not os.path.exists(self.path):
         pd.DataFrame().to_csv(self.path, index=False)
+    
     def load(self):
     import pandas as pd
 
