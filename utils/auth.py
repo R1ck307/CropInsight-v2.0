@@ -6,10 +6,14 @@ USER_DB_PATH = "database/users.csv"
 
 
 def load_users():
+    # Ensure folder exists
+    os.makedirs("database", exist_ok=True)
+
     if not os.path.exists(USER_DB_PATH):
         df = pd.DataFrame(columns=["id", "username", "password", "role", "created_at"])
         df.to_csv(USER_DB_PATH, index=False)
         return df
+
     return pd.read_csv(USER_DB_PATH)
 
 
