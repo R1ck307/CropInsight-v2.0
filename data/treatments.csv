@@ -1,1 +1,11 @@
 treatment_id,disease_id,treatment_type,description
+1,1,Chemical,Fungicide application (Azoxystrobin-based)
+2,1,Agricultural,Remove infected crop residues
+3,2,Chemical,Apply sulfur-based fungicide
+4,3,Chemical,Use triazole fungicide spray
+5,3,Agricultural,Improve field drainage
+6,4,Biological,Use disease-free cuttings
+7,4,Agricultural,Remove infected plants immediately
+8,6,Chemical,Copper-based fungicide spray
+9,6,Agricultural,Rotate crops and avoid overhead irrigation
+10,8,Agricultural,Remove infected banana mats and replant resistant varieties
