@@ -16,9 +16,18 @@ class Database:
             pd.DataFrame().to_csv(self.path, index=False)
 
     def load(self):
-        if os.path.getsize(self.path) == 0:
-            return pd.DataFrame()
+    import pandas as pd
+
+    if not os.path.exists(self.path):
+        return pd.DataFrame()
+
+    if os.path.getsize(self.path) == 0:
+        return pd.DataFrame()
+
+    try:
         return pd.read_csv(self.path)
+    except pd.errors.EmptyDataError:
+        return pd.DataFrame()
 
     def save(self, df):
         df.to_csv(self.path, index=False)
