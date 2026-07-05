@@ -1,50 +1,38 @@
-import pandas as pd
-import os
 from datetime import datetime
+from utils.database import Database
 
-USER_DB_PATH = "database/users.csv"
+# Initialize users database through engine
+users_db = Database("database/users.csv")
 
 
 def load_users():
-    # Ensure folder exists
-    os.makedirs("database", exist_ok=True)
-
-    if not os.path.exists(USER_DB_PATH):
-        df = pd.DataFrame(columns=["id", "username", "password", "role", "created_at"])
-        df.to_csv(USER_DB_PATH, index=False)
-        return df
-
-    return pd.read_csv(USER_DB_PATH)
-
-
-def save_users(df):
-    df.to_csv(USER_DB_PATH, index=False)
+    return users_db.load()
 
 
 def register_user(username, password, role="user"):
-    df = load_users()
+    df = users_db.load()
 
-    if username in df["username"].values:
+    if not df.empty and username in df["username"].values:
         return False, "Username already exists"
 
-    new_id = len(df) + 1
-
     new_user = {
-        "id": new_id,
+        "id": len(df) + 1,
         "username": username,
         "password": password,
         "role": role,
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
-    df = pd.concat([df, pd.DataFrame([new_user])], ignore_index=True)
-    save_users(df)
+    users_db.insert(new_user)
 
     return True, "User registered successfully"
 
 
 def login_user(username, password):
-    df = load_users()
+    df = users_db.load()
+
+    if df.empty:
+        return False, "No users found"
 
     user = df[(df["username"] == username) & (df["password"] == password)]
 
