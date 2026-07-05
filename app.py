@@ -6,12 +6,14 @@ st.set_page_config(
     layout="wide"
 )
 
+if "logged_in" not in st.session_state:
+    st.session_state["logged_in"] = False
+
 st.title("🌾 CropInsight v2")
-st.subheader("AI-Powered Crop Diagnosis System (Nationals Edition)")
 
-st.write("""
-Welcome to CropInsight v2.  
-This system helps farmers detect crop diseases, get treatments, and improve yield using AI and expert rules.
-""")
-
-st.success("System is running successfully 🚀")
+if st.session_state["logged_in"]:
+    user = st.session_state["user"]
+    st.success(f"Logged in as {user['username']} ({user['role']})")
+    st.write("Welcome to the system 🚀")
+else:
+    st.warning("Please login from the Login page to continue.")
