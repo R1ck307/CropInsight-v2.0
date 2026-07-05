@@ -10,6 +10,58 @@ st.set_page_config(
     layout="wide"
 )
 
+# ----------------------------
+# DARK AI STYLE UI
+# ----------------------------
+st.markdown("""
+<style>
+.main {
+    background-color: #0f172a;
+}
+
+h1 {
+    color: #4ade80;
+    font-weight: 800;
+}
+
+h2, h3 {
+    color: #e2e8f0;
+}
+
+section[data-testid="stSidebar"] {
+    background-color: #111827;
+}
+
+div[data-testid="metric-container"] {
+    background-color: #1f2937;
+    border-radius: 12px;
+    padding: 10px;
+    color: white;
+}
+
+.stButton > button {
+    background-color: #22c55e;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+}
+
+.stButton > button:hover {
+    background-color: #16a34a;
+}
+
+textarea {
+    background-color: #1f2937 !important;
+    color: white !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ----------------------------
+# TITLE
+# ----------------------------
 st.title("🌾 CropInsight V2 - AI Crop Disease Expert System")
 st.markdown("Smart farming assistant for African agriculture 🌍")
 
@@ -23,17 +75,17 @@ system = CropExpertSystem(
 )
 
 # ----------------------------
-# SIDEBAR
+# SIDEBAR NAV
 # ----------------------------
 st.sidebar.header("🧭 Navigation")
-page = st.sidebar.radio("Go to", ["🏠 Diagnose", "📊 Dashboard Info"])
+page = st.sidebar.radio("Go to", ["🏠 Diagnose", "📊 Dashboard"])
 
 # ----------------------------
 # DIAGNOSIS PAGE
 # ----------------------------
 if page == "🏠 Diagnose":
 
-    st.subheader("🧠 Crop Disease Diagnosis")
+    st.subheader("🧠 Crop Diagnosis Engine")
 
     col1, col2 = st.columns(2)
 
@@ -56,29 +108,39 @@ if page == "🏠 Diagnose":
         else:
             result = system.run_diagnosis(crop, symptoms)
 
-            if result["status"] == "no_match"]:
+            if result["status"] == "no_match":
                 st.error(result["message"])
             else:
-                st.success("Diagnosis Complete ✔️")
+                st.success("AI Diagnosis Complete ✔️")
 
                 # ----------------------------
-                # BEST MATCH
+                # BEST MATCH CARD
                 # ----------------------------
-                st.subheader("🎯 Best Match")
-
                 best = result["best_match"]
 
-                st.metric("Disease", best["disease"])
-                st.metric("Confidence", f"{best['confidence']}%")
-                st.metric("Severity", best["severity"])
+                st.subheader("🎯 AI Diagnosis Result")
+
+                st.markdown(f"""
+                <div style="
+                    background-color:#1f2937;
+                    padding:20px;
+                    border-radius:15px;
+                    margin-bottom:15px;
+                ">
+                    <h3 style="color:#4ade80;">🦠 {best['disease']}</h3>
+                    <p><b>🌾 Crop:</b> {crop}</p>
+                    <p><b>📊 Confidence:</b> {best['confidence']}%</p>
+                    <p><b>⚠️ Severity:</b> {best['severity']}</p>
+                </div>
+                """, unsafe_allow_html=True)
 
                 # ----------------------------
                 # ALL MATCHES
                 # ----------------------------
-                st.subheader("📊 All Possible Matches")
+                st.subheader("📊 Other Possible Matches")
 
                 for m in result["matches"]:
-                    st.write(f"🦠 {m['disease']} - {m['confidence']}% confidence")
+                    st.write(f"🦠 {m['disease']} - {m['confidence']}%")
 
                 # ----------------------------
                 # TREATMENTS
@@ -86,23 +148,53 @@ if page == "🏠 Diagnose":
                 st.subheader("💊 Recommended Treatments")
 
                 for t in result["treatments"]:
-                    st.write(f"• {t['treatment_type']}: {t['description']}")
+                    st.markdown(f"""
+                    <div style="
+                        background-color:#0b1220;
+                        padding:12px;
+                        border-left:4px solid #22c55e;
+                        margin-bottom:10px;
+                        border-radius:10px;
+                    ">
+                        <b>{t['treatment_type']}</b><br>
+                        {t['description']}
+                    </div>
+                    """, unsafe_allow_html=True)
 
 # ----------------------------
 # DASHBOARD PAGE
 # ----------------------------
-elif page == "📊 Dashboard Info":
+elif page == "📊 Dashboard":
 
     st.subheader("📊 System Overview")
 
-    st.write("🌾 Total Crops:", len(system.crops))
-    st.write("🦠 Total Diseases:", len(system.diseases))
-    st.write("💊 Total Treatments:", len(system.treatments))
+    col1, col2, col3 = st.columns(3)
 
-    st.markdown("### 🌍 Crops Available")
+    col1.markdown(f"""
+    <div style="background-color:#1f2937;padding:15px;border-radius:12px;">
+    <h3 style="color:#4ade80;">🌾 Crops</h3>
+    <h2>{len(system.crops)}</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
+    col2.markdown(f"""
+    <div style="background-color:#1f2937;padding:15px;border-radius:12px;">
+    <h3 style="color:#facc15;">🦠 Diseases</h3>
+    <h2>{len(system.diseases)}</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col3.markdown(f"""
+    <div style="background-color:#1f2937;padding:15px;border-radius:12px;">
+    <h3 style="color:#38bdf8;">💊 Treatments</h3>
+    <h2>{len(system.treatments)}</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    st.markdown("### 🌾 Crops Database")
     st.dataframe(system.crops)
 
-    st.markdown("### 🦠 Disease Database")
-
+    st.markdown("### 🦠 Diseases Database")
     st.dataframe(system.diseases)
