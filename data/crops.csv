@@ -1,1 +1,19 @@
 crop_id,name,category,climate,common_regions
+1,Maize,Cereal,Tropical,Southern Africa
+2,Rice,Cereal,Humid Tropical,West Africa
+3,Sorghum,Cereal,Arid,East Africa
+4,Millet,Cereal,Dryland,Sahel
+5,Cassava,Root Crop,Tropical,Central Africa
+6,Yam,Root Crop,Tropical,West Africa
+7,Sweet Potato,Root Crop,Tropical,East Africa
+8,Groundnut,Legume,Subtropical,West Africa
+9,Beans,Legume,Temperate/Tropical,All regions
+10,Soybean,Legume,Temperate,South Africa
+11,Banana,Fruit,Tropical,Central Africa
+12,Plantain,Fruit,Humid Tropical,West Africa
+13,Tomato,Vegetable,Temperate/Tropical,All regions
+14,Onion,Vegetable,Dry/Subtropical,North Africa
+15,Cotton,Fibre,Hot Dry,East Africa
+16,Coffee,Industrial,Tropical highland,East Africa
+17,Tea,Industrial,Cool Highland,East Africa
+18,Sugarcane,Industrial,Tropical,South Africa
