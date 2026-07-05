@@ -1,5 +1,6 @@
 from datetime import datetime
-from utils.database import Database
+from utils.database import 
+Database
 
 users_db = Database("database/users.csv")
 
