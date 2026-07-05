@@ -8,13 +8,12 @@ class Database:
         self.ensure_file()
 
     def ensure_file(self):
-        folder = os.path.dirname(self.path)
-        if folder:
-            os.makedirs(folder, exist_ok=True)
+    folder = os.path.dirname(self.path)
+    if folder:
+        os.makedirs(folder, exist_ok=True)
 
-        if not os.path.exists(self.path):
-            pd.DataFrame().to_csv(self.path, index=False)
-
+    if not os.path.exists(self.path):
+        pd.DataFrame().to_csv(self.path, index=False)
     def load(self):
     import pandas as pd
 
