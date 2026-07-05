@@ -164,6 +164,24 @@ if page == "🏠 Diagnose":
                     """, unsafe_allow_html=True)
 
 # ----------------------------
+# PDF REPORT GENERATION
+# ----------------------------
+st.subheader("📄 Download Report")
+
+if st.button("⬇️ Generate PDF Report"):
+
+    file_path = "crop_diagnosis_report.pdf"
+
+    generate_pdf_report(file_path, crop, result)
+
+    with open(file_path, "rb") as f:
+        st.download_button(
+            label="📥 Download PDF",
+            data=f,
+            file_name="CropInsight_Report.pdf",
+            mime="application/pdf"
+        )
+# ----------------------------
 # DASHBOARD PAGE
 # ----------------------------
 elif page == "📊 Dashboard":
