@@ -11,23 +11,21 @@ def diagnose_crop(crop, symptoms_input):
             "severity": "unknown"
         }
 
-    symptoms_input = symptoms_input.lower().split(",")
+    symptoms_input = [s.strip().lower() for s in symptoms_input.split(",")]
 
     best_match = None
     best_score = 0
 
     for disease, data in CROP_RULES[crop].items():
 
-        match_count = 0
+        matches = 0
 
-        for symptom in symptoms_input:
-            symptom = symptom.strip()
-
+        for user_symptom in symptoms_input:
             for known_symptom in data["symptoms"]:
-                if symptom in known_symptom:
-                    match_count += 1
+                if user_symptom in known_symptom:
+                    matches += 1
 
-        score = match_count / len(data["symptoms"])
+        score = matches / len(data["symptoms"])
 
         if score > best_score:
             best_score = score
@@ -46,6 +44,6 @@ def diagnose_crop(crop, symptoms_input):
     return {
         "disease": "No match",
         "confidence": 0,
-        "treatment": "Try better symptom description",
+        "treatment": "Improve symptom description",
         "severity": "low"
     }
