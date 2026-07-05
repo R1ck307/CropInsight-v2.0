@@ -1,8 +1,6 @@
 from datetime import datetime
-from utils.database import 
-Database
+from utils.database import Database
 
-# Initialize users database through engine
 users_db = Database("database/users.csv")
 
 
@@ -25,7 +23,6 @@ def register_user(username, password, role="user"):
     }
 
     users_db.insert(new_user)
-
     return True, "User registered successfully"
 
 
