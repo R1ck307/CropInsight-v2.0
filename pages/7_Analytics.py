@@ -1,68 +1,38 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
+from expert_system.analytics_engine import (
+    get_most_common_diseases,
+    get_most_affected_crops,
+    get_average_confidence,
+    get_total_diagnoses
+)
 
-from utils.diagnosis_manager import get_user_diagnoses
-from utils.farm_manager import get_user_farms
+st.title("📊 CropInsight Analytics Dashboard")
 
-st.title("📊 Analytics Dashboard")
+st.subheader("📈 System Overview")
 
-if "user" not in st.session_state:
-    st.warning("Please login first")
-    st.stop()
+st.metric("Total Diagnoses", get_total_diagnoses())
+st.metric("Average Confidence", f"{get_average_confidence()}%")
 
-user = st.session_state["user"]
+st.markdown("---")
 
-# LOAD DATA
-diagnoses = get_user_diagnoses(user["id"])
-farms = get_user_farms(user["id"])
+st.subheader("🦠 Most Common Diseases")
 
-if diagnoses.empty:
-    st.info("No diagnosis data available yet.")
-    st.stop()
+diseases = get_most_common_diseases()
 
-# ---------------- SUMMARY ----------------
-st.subheader("📌 Overview")
+if diseases:
+    for k, v in diseases.items():
+        st.write(f"- **{k}**: {v} cases")
+else:
+    st.write("No data yet.")
 
-total_diagnoses = len(diagnoses)
-unique_diseases = diagnoses["disease"].nunique()
-avg_confidence = diagnoses["confidence"].mean()
+st.markdown("---")
 
-col1, col2, col3 = st.columns(3)
+st.subheader("🌾 Most Affected Crops")
 
-col1.metric("Total Diagnoses", total_diagnoses)
-col2.metric("Unique Diseases", unique_diseases)
-col3.metric("Avg Confidence", f"{avg_confidence:.2f}%")
+crops = get_most_affected_crops()
 
-st.divider()
-
-# ---------------- DISEASE DISTRIBUTION ----------------
-st.subheader("🦠 Disease Distribution")
-
-disease_counts = diagnoses["disease"].value_counts()
-
-fig1, ax1 = plt.subplots()
-disease_counts.plot(kind="bar", ax=ax1)
-ax1.set_ylabel("Count")
-ax1.set_xlabel("Disease")
-
-st.pyplot(fig1)
-
-st.divider()
-
-# ---------------- CROP ANALYSIS ----------------
-st.subheader("🌾 Crop Analysis")
-
-crop_counts = diagnoses["crop"].value_counts()
-
-fig2, ax2 = plt.subplots()
-crop_counts.plot(kind="pie", autopct="%1.1f%%", ax=ax2)
-
-st.pyplot(fig2)
-
-st.divider()
-
-# ---------------- HISTORY TABLE ----------------
-st.subheader("📜 Diagnosis History")
-
-st.dataframe(diagnoses.sort_values("date", ascending=False))
+if crops:
+    for k, v in crops.items():
+        st.write(f"- **{k}**: {v} cases")
+else:
+    st.write("No data yet.")
