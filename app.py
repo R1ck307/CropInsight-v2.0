@@ -2,8 +2,10 @@ import streamlit as st
 
 from utils.theme import apply_theme
 from utils.knowledge_base import load_crops
-from expert_system.analytics_engine import get_total_diagnoses
-
+from expert_system.analytics_engine import (
+    get_total_diagnoses,
+    get_average_confidence
+)
 
 st.set_page_config(
     page_title="CropInsight AI",
@@ -11,80 +13,79 @@ st.set_page_config(
     layout="wide"
 )
 
-
-# Apply global theme
 apply_theme()
-
 
 # ---------------- HEADER ----------------
 
-st.title("🌾 CropInsight AI Platform")
+st.title("🌾 CropInsight AI")
+st.caption("Smart Agricultural Decision Support System")
 
-st.subheader(
-    "Smart Agricultural Decision Support System"
-)
-
-
-# ---------------- STAT CARDS ----------------
-
-col1, col2, col3 = st.columns(3)
-
-
-with col1:
-    crops = load_crops()
-
-    if crops is not None:
-        crop_count = len(crops)
-    else:
-        crop_count = 0
-
-    st.metric(
-        "Supported Crops",
-        crop_count
-    )
-
-
-with col2:
-
-    st.metric(
-        "Total Diagnoses",
-        get_total_diagnoses()
-    )
-
-
-with col3:
-
-    st.metric(
-        "System Status",
-        "Online 🟢"
-    )
-
+st.success("Welcome to CropInsight! Helping farmers make better decisions using intelligent crop diagnosis and recommendations.")
 
 st.divider()
 
+# ---------------- DASHBOARD CARDS ----------------
+
+crop_count = 0
+crops = load_crops()
+
+if crops is not None:
+    crop_count = len(crops)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("🌱 Supported Crops", crop_count)
+
+with col2:
+    st.metric("🩺 Diagnoses", get_total_diagnoses())
+
+with col3:
+    st.metric("🎯 Avg Confidence", f"{get_average_confidence()}%")
+
+with col4:
+    st.metric("🟢 Status", "Online")
+
+st.divider()
 
 # ---------------- FEATURES ----------------
 
-st.header("🚀 CropInsight Features")
+st.subheader("🚀 What CropInsight Can Do")
 
+left, right = st.columns(2)
 
-features = [
-    "🧠 AI-powered crop disease diagnosis",
-    "💊 Treatment and fertilizer recommendations",
-    "🌱 African crop knowledge base",
-    "📊 Farm health analytics",
-    "🤖 AI farming assistant",
-    "📄 Diagnosis report generation"
-]
+with left:
+    st.markdown("""
+- 🧠 Diagnose crop diseases
+- 💊 Recommend treatments
+- 🌿 Suggest fertilizers
+- 📊 Track diagnosis history
+""")
 
-
-for feature in features:
-    st.write(feature)
-
+with right:
+    st.markdown("""
+- 🤖 AI Farming Assistant
+- 📈 Farm analytics
+- 📄 Generate reports
+- 🌍 Designed for African agriculture
+""")
 
 st.divider()
 
+# ---------------- GET STARTED ----------------
+
+st.subheader("📍 Get Started")
 
 st.info(
-    "Use the sidebar to navigate through CropInsight modules."
+    """
+1. Login using the Login page.
+2. Create your farm profile.
+3. Open the Diagnosis page.
+4. Enter crop symptoms.
+5. View recommendations and download your report.
+    """
 )
+
+st.divider()
+
+st.caption("CropInsight v2.0 • Nationals Edition • Developed by Richard Makwakwa")
