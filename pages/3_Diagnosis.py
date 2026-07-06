@@ -5,35 +5,47 @@ from expert_system.recommendation_engine import (
     get_treatment_advice,
     get_fertilizer_advice
 )
-
 from expert_system.report_engine import generate_report
 
 from utils.knowledge_base import get_crop_names
 from utils.farm_manager import get_user_farms
 from utils.diagnosis_manager import save_diagnosis
 
+from utils.theme import apply_theme, page_header
 
-st.title("🧠 CropInsight AI Diagnosis")
+
+# Apply theme
+apply_theme()
 
 
-# LOGIN CHECK
+page_header(
+    "AI Crop Diagnosis",
+    "Detect diseases and receive intelligent farming recommendations"
+)
+
+
+# ---------------- LOGIN CHECK ----------------
+
 if "user" not in st.session_state:
     st.warning("Please login first.")
     st.stop()
 
+
 user = st.session_state["user"]
 
 
-# LOAD FARMS
+# ---------------- FARM SELECTION ----------------
+
 farms = get_user_farms(user["id"])
 
+
 if farms is None or farms.empty:
-    st.warning("Please create a farm first.")
+    st.warning("Create a farm profile first.")
     st.stop()
 
 
 farm_name = st.selectbox(
-    "Select Farm",
+    "🌾 Select Farm",
     farms["farm_name"].tolist()
 )
 
@@ -46,26 +58,41 @@ farm_id = int(
 )
 
 
-# CROP SELECTION
+# ---------------- CROP ----------------
+
 crop = st.selectbox(
-    "Select Crop",
+    "🌱 Select Crop",
     get_crop_names()
 )
 
 
-# SYMPTOMS
+# ---------------- SYMPTOMS ----------------
+
 symptoms = st.text_area(
-    "Enter symptoms separated by ;",
-    placeholder="yellow leaves; spots; wilting"
+    "🔍 Describe Symptoms",
+    placeholder=
+    "Example: yellow leaves; dark spots; wilting"
 )
 
 
+st.caption(
+    "Separate symptoms using semicolons (;)"
+)
 
-if st.button("Run AI Diagnosis"):
+
+# ---------------- DIAGNOSIS ----------------
+
+if st.button("🧠 Run AI Diagnosis"):
+
 
     if not symptoms.strip():
-        st.error("Enter symptoms first.")
+
+        st.error(
+            "Please enter symptoms first."
+        )
+
         st.stop()
+
 
 
     results = diagnose_crop(
@@ -75,21 +102,26 @@ if st.button("Run AI Diagnosis"):
 
 
     if not results:
-        st.error("No matching disease found.")
+
+        st.error(
+            "No matching disease found."
+        )
+
         st.stop()
 
 
-    st.success("Diagnosis completed")
+
+    st.success(
+        "Analysis Complete"
+    )
 
 
-    st.subheader("Possible Diseases")
+    st.subheader(
+        "🔬 Diagnosis Results"
+    )
 
 
     for index, result in enumerate(results, start=1):
-
-        if not isinstance(result, dict):
-            continue
-
 
         disease = result.get(
             "disease",
@@ -101,37 +133,157 @@ if st.button("Run AI Diagnosis"):
             0
         )
 
+        severity = result.get(
+            "severity",
+            "Unknown"
+        )
 
-        with st.expander(
-            f"{index}. {disease} ({confidence}%)",
-            expanded=(index == 1)
-        ):
 
-            st.write(
-                "Severity:",
-                result.get("severity")
+        with st.container():
+
+            st.markdown("---")
+
+
+            st.subheader(
+                f"{index}. {disease}"
             )
 
-            st.write(
-                "Cause:",
-                result.get("cause")
+
+            st.progress(
+                min(
+                    confidence / 100,
+                    1.0
+                )
             )
 
-            st.write(
-                "Treatment:",
-                result.get("treatment")
-            )
 
             st.write(
-                "Prevention:",
-                result.get("prevention")
+                f"🎯 Confidence: {confidence}%"
             )
+
+
+            if severity.lower() == "high":
+
+                st.error(
+                    f"Severity: {severity}"
+                )
+
+            elif severity.lower() == "medium":
+
+                st.warning(
+                    f"Severity: {severity}"
+                )
+
+            else:
+
+                st.success(
+                    f"Severity: {severity}"
+                )
+
+
+            col1, col2 = st.columns(2)
+
+
+            with col1:
+
+                st.write(
+                    "🦠 Disease Type"
+                )
+
+                st.write(
+                    result.get(
+                        "type",
+                        "Unknown"
+                    )
+                )
+
+
+                st.write(
+                    "⚠ Cause"
+                )
+
+                st.write(
+                    result.get(
+                        "cause",
+                        "Not available"
+                    )
+                )
+
+
+            with col2:
+
+                st.write(
+                    "💊 Treatment"
+                )
+
+                st.write(
+                    result.get(
+                        "treatment",
+                        "Not available"
+                    )
+                )
+
+
+                st.write(
+                    "🛡 Prevention"
+                )
+
+                st.write(
+                    result.get(
+                        "prevention",
+                        "Not available"
+                    )
+                )
+
+
+            st.markdown(
+                "### 🌿 Smart Recommendations"
+            )
+
+
+            treatments = get_treatment_advice(
+                disease
+            )
+
+
+            fertilizers = get_fertilizer_advice(
+                crop
+            )
+
+
+            if treatments:
+
+                for item in treatments:
+
+                    st.write(
+                        "💊",
+                        item.get(
+                            "treatment_name",
+                            "Treatment"
+                        )
+                    )
+
+
+            if fertilizers:
+
+                for item in fertilizers:
+
+                    st.write(
+                        "🌱",
+                        item.get(
+                            "fertilizer_name",
+                            "Fertilizer"
+                        )
+                    )
+
+
+
+    # ---------------- SAVE + REPORT ----------------
 
 
     best = results[0]
 
 
-    # SAVE HISTORY
     save_diagnosis(
         user_id=user["id"],
         farm_id=farm_id,
@@ -141,7 +293,6 @@ if st.button("Run AI Diagnosis"):
     )
 
 
-    # REPORT DOWNLOAD
     report = generate_report(
         user=user,
         farm_name=farm_name,
@@ -152,12 +303,12 @@ if st.button("Run AI Diagnosis"):
 
 
     st.download_button(
-        "📄 Download Diagnosis Report",
+        "📄 Download Farm Report",
         report,
-        file_name="cropinsight_report.txt"
+        file_name="CropInsight_Report.txt"
     )
 
 
     st.success(
         "Diagnosis saved successfully."
-    )
+            )
