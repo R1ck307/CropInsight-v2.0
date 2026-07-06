@@ -1,1 +1,16 @@
-
+fertilizer_id,fertilizer_name,fertilizer_type,npk_ratio,primary_nutrient,recommended_for,application_stage,application_method,notes
+1,Urea,Nitrogen,46-0-0,Nitrogen,Maize;Rice;Wheat,Vegetative,Broadcast or side dress,Do not apply before heavy rain
+2,DAP,Compound,18-46-0,Phosphorus,Maize;Beans;Groundnuts,Planting,Band placement,Excellent starter fertilizer
+3,NPK 15-15-15,Compound,15-15-15,Balanced,Most crops,Vegetative,Broadcast,General-purpose fertilizer
+4,NPK 20-10-10,Compound,20-10-10,Nitrogen,Maize;Sugarcane,Early Growth,Broadcast,Promotes leaf growth
+5,MOP (Potash),Potassium,0-0-60,Potassium,Banana;Tomato;Potato,Fruiting,Broadcast,Improves fruit quality
+6,CAN,Nitrogen,27-0-0,Nitrogen,Maize;Vegetables,Vegetative,Top dressing,Apply to moist soil
+7,Compost,Organic,Variable,Organic Matter,All crops,Any stage,Incorporate into soil,Improves soil structure
+8,Farmyard Manure,Organic,Variable,Organic Matter,All crops,Before Planting,Mix into soil,Well-decomposed manure is recommended
+9,Bone Meal,Organic,3-15-0,Phosphorus,Root crops;Vegetables,Planting,Mix into planting hole,Slow-release phosphorus
+10,Lime,Soil Amendment,0-0-0,Calcium,Acidic soils,Before Planting,Incorporate into soil,Raises soil pH
+11,Ammonium Sulphate,Nitrogen,21-0-0,Nitrogen,Rice;Maize,Vegetative,Broadcast,Adds sulfur
+12,Rock Phosphate,Phosphorus,0-30-0,Phosphorus,Legumes;Root crops,Planting,Incorporate into soil,Best in acidic soils
+13,Potassium Nitrate,Compound,13-0-46,Potassium,Tomato;Pepper,Fruiting,Fertigation or foliar,Improves fruit development
+14,Calcium Nitrate,Compound,15.5-0-0,Nitrogen & Calcium,Tomato;Vegetables,Flowering,Fertigation,Helps prevent blossom end rot
+15,Micronutrient Mix,Micronutrient,Variable,Mixed Micronutrients,All crops,Any stage,Foliar spray,Corrects trace element deficiencies
