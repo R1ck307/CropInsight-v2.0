@@ -1,11 +1,16 @@
-treatment_id,disease_id,treatment_type,description
-1,1,Chemical,Fungicide application (Azoxystrobin-based)
-2,1,Agricultural,Remove infected crop residues
-3,2,Chemical,Apply sulfur-based fungicide
-4,3,Chemical,Use triazole fungicide spray
-5,3,Agricultural,Improve field drainage
-6,4,Biological,Use disease-free cuttings
-7,4,Agricultural,Remove infected plants immediately
-8,6,Chemical,Copper-based fungicide spray
-9,6,Agricultural,Rotate crops and avoid overhead irrigation
-10,8,Agricultural,Remove infected banana mats and replant resistant varieties
+treatment_id,treatment_name,treatment_type,description,application_method,frequency,safety_precautions
+1,Copper Fungicide,Fungicide,Controls many fungal diseases,Spray foliage every 7 to 14 days,Every 7-14 days,Wear gloves and avoid spraying in strong wind
+2,Mancozeb,Fungicide,Protective broad-spectrum fungicide,Foliar spray,Every 7-10 days,Do not exceed recommended dosage
+3,Azoxystrobin,Fungicide,Systemic fungicide for fungal diseases,Foliar spray,Every 10-14 days,Avoid spraying before rain
+4,Neem Oil,Biological,Organic pest control,Spray leaves thoroughly,Weekly,Avoid spraying during hottest part of day
+5,Bacillus thuringiensis (Bt),Biological,Biological insecticide against caterpillars,Foliar spray,Every 7 days,Apply during early larval stages
+6,Imidacloprid,Insecticide,Systemic insecticide for sucking insects,Soil drench or foliar spray,As recommended,Keep away from pollinators
+7,Crop Rotation,Cultural,Reduce disease build-up by rotating crops,Change crop family each season,Every season,Follow proper rotation plan
+8,Remove Infected Plants,Sanitation,Prevent spread by removing infected plants,Destroy infected material,Immediately,Do not compost infected plants
+9,Certified Disease-Free Seed,Prevention,Use healthy planting material,Plant only certified seed,Each planting season,Store seed correctly
+10,Improve Drainage,Cultural,Reduce root diseases by improving drainage,Construct drainage channels,As needed,Prevent waterlogging
+11,Balanced NPK Fertilizer,Nutrition,Improve plant vigor and recovery,Apply according to soil test,As recommended,Avoid over-application
+12,Calcium Supplement,Nutrition,Correct calcium deficiencies,Apply through soil or foliar spray,As recommended,Follow label instructions
+13,Biological Control,Pest Management,Use natural enemies to control pests,Release beneficial insects,As recommended,Protect beneficial organisms
+14,Resistant Variety,Prevention,Plant resistant crop varieties,Select resistant seed before planting,Every planting season,Use certified suppliers
+15,Field Monitoring,Monitoring,Inspect crops regularly for early detection,Scout fields weekly,Weekly,Record observations
