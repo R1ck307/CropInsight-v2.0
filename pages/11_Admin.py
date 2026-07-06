@@ -1,62 +1,47 @@
 import streamlit as st
-import pandas as pd
 
-from utils.database import Database
+from utils.page_setup import setup_page
+from utils.system_check import run_system_check, system_ready
 
-st.title("🧑‍💼 Admin Dashboard")
 
-if "user" not in st.session_state:
-    st.warning("Please login first")
-    st.stop()
+setup_page()
 
-user = st.session_state["user"]
 
-# SIMPLE ROLE CHECK
-if user.get("role") != "admin":
-    st.error("Access denied. Admins only.")
-    st.stop()
+st.title("⚙️ System Administration")
 
-# LOAD DATABASES
-users_db = Database("database/users.csv")
-farms_db = Database("database/farms.csv")
-diag_db = Database("database/diagnoses.csv")
 
-users = users_db.load()
-farms = farms_db.load()
-diagnoses = diag_db.load()
+st.subheader(
+    "CropInsight System Health"
+)
 
-# ---------------- OVERVIEW ----------------
-st.subheader("📊 System Overview")
 
-col1, col2, col3 = st.columns(3)
+if system_ready():
 
-col1.metric("Total Users", len(users))
-col2.metric("Total Farms", len(farms))
-col3.metric("Total Diagnoses", len(diagnoses))
+    st.success(
+        "✅ System Ready"
+    )
+
+else:
+
+    st.error(
+        "⚠️ Issues Detected"
+    )
+
 
 st.divider()
 
-# ---------------- USERS ----------------
-st.subheader("👤 Users")
-if users.empty:
-    st.info("No users found")
-else:
-    st.dataframe(users)
 
-st.divider()
+for item in run_system_check():
 
-# ---------------- FARMS ----------------
-st.subheader("🌾 Farms")
-if farms.empty:
-    st.info("No farms found")
-else:
-    st.dataframe(farms)
 
-st.divider()
+    if item["status"] == "OK":
 
-# ---------------- DIAGNOSES ----------------
-st.subheader("🧠 Diagnoses")
-if diagnoses.empty:
-    st.info("No diagnoses found")
-else:
-    st.dataframe(diagnoses)
+        st.success(
+            f"✅ {item['file']}"
+        )
+
+    else:
+
+        st.error(
+            f"❌ Missing: {item['file']}"
+        )
