@@ -74,6 +74,26 @@ if st.button("Diagnose"):
 
     for i, result in enumerate(results, start=1):
 
+    # SAFE FALLBACKS (prevents crashes)
+    disease = result.get("disease", "Unknown disease")
+    confidence = result.get("confidence", 0)
+    severity = result.get("severity", "Unknown")
+    dtype = result.get("type", "Unknown")
+    cause = result.get("cause", "Not available")
+    treatment = result.get("treatment", "Not available")
+    prevention = result.get("prevention", "Not available")
+
+    with st.expander(
+        f"{i}. {disease} ({confidence}%)",
+        expanded=(i == 1)
+    ):
+
+        st.write(f"**Disease Type:** {dtype}")
+        st.write(f"**Severity:** {severity}")
+        st.write(f"**Cause:** {cause}")
+        st.write(f"**Treatment:** {treatment}")
+        st.write(f"**Prevention:** {prevention}")
+
         with st.expander(
             f"{i}. {result['disease']} ({result['confidence']}%)",
             expanded=(i == 1)
