@@ -1,3 +1,4 @@
+from expert_system.report_engine import generate_report
 import streamlit as st
 
 from expert_system.diagnosis_engine import diagnose_crop
