@@ -1,31 +1,33 @@
 import streamlit as st
 
 from expert_system.diagnosis_engine import diagnose_crop
+from expert_system.recommendation_engine import (
+    get_treatment_advice,
+    get_fertilizer_advice
+)
+
 from utils.knowledge_base import get_crop_names
 from utils.farm_manager import get_user_farms
 from utils.diagnosis_manager import save_diagnosis
 
 
-st.title("🧠 Crop Diagnosis System")
+st.title("🧠 CropInsight AI Diagnosis & Advisory")
 
-# ---------------- SESSION CHECK ----------------
+# ---------------- LOGIN CHECK ----------------
 if "user" not in st.session_state:
     st.warning("Please login first.")
     st.stop()
 
 user = st.session_state["user"]
 
-# ---------------- LOAD FARMS ----------------
+# ---------------- FARMS ----------------
 farms = get_user_farms(user["id"])
 
 if farms is None or farms.empty:
     st.warning("No farms found. Please create a farm first.")
     st.stop()
 
-farm_name = st.selectbox(
-    "Select Farm",
-    farms["farm_name"].tolist()
-)
+farm_name = st.selectbox("Select Farm", farms["farm_name"].tolist())
 
 farm_id = int(
     farms.loc[
@@ -34,22 +36,16 @@ farm_id = int(
     ].iloc[0]
 )
 
-# ---------------- LOAD CROPS ----------------
-crop_list = get_crop_names()
+# ---------------- CROPS ----------------
+crop = st.selectbox("Select Crop", get_crop_names())
 
-if not crop_list:
-    st.error("No crops found in database.")
-    st.stop()
-
-crop = st.selectbox("Select Crop", crop_list)
-
-# ---------------- SYMPTOMS INPUT ----------------
-st.info("Separate symptoms using semicolons (;)\nExample: yellow leaves; wilting; dark spots")
+# ---------------- SYMPTOMS ----------------
+st.info("Use semicolon (;) to separate symptoms\nExample: yellow leaves; spots; wilting")
 
 symptoms = st.text_area("Enter Symptoms")
 
-# ---------------- DIAGNOSIS BUTTON ----------------
-if st.button("Run Diagnosis"):
+# ---------------- RUN DIAGNOSIS ----------------
+if st.button("Run AI Diagnosis"):
 
     if not symptoms.strip():
         st.error("Please enter symptoms.")
@@ -58,17 +54,17 @@ if st.button("Run Diagnosis"):
     results = diagnose_crop(crop, symptoms)
 
     if not results:
-        st.error("No matching diseases found.")
+        st.error("No matching disease found.")
         st.stop()
 
     st.success("Diagnosis Complete")
 
-    st.subheader("Top 3 Possible Diseases")
+    st.subheader("🔍 Top 3 Possible Diagnoses")
 
-    # ---------------- RESULTS DISPLAY ----------------
+    # ---------------- DIAGNOSIS RESULTS ----------------
     for i, result in enumerate(results, start=1):
 
-        disease = result.get("disease", "Unknown disease")
+        disease = result.get("disease", "Unknown")
         confidence = result.get("confidence", 0)
         severity = result.get("severity", "Unknown")
         dtype = result.get("type", "Unknown")
@@ -76,16 +72,36 @@ if st.button("Run Diagnosis"):
         treatment = result.get("treatment", "Not available")
         prevention = result.get("prevention", "Not available")
 
-        with st.expander(
-            f"{i}. {disease} ({confidence}%)",
-            expanded=(i == 1)
-        ):
+        with st.expander(f"{i}. {disease} ({confidence}%)", expanded=(i == 1)):
 
-            st.write(f"**Disease Type:** {dtype}")
+            st.write(f"**Type:** {dtype}")
             st.write(f"**Severity:** {severity}")
             st.write(f"**Cause:** {cause}")
-            st.write(f"**Treatment:** {treatment}")
+            st.write(f"**Treatment (from disease DB):** {treatment}")
             st.write(f"**Prevention:** {prevention}")
+
+            # 🧠 NEW: SMART RECOMMENDATIONS
+            st.markdown("---")
+            st.subheader("💊 AI Recommendations")
+
+            treatment_adv = get_treatment_advice(disease)
+            fertilizer_adv = get_fertilizer_advice(crop)
+
+            if treatment_adv:
+                st.write("### Recommended Treatments")
+                for t in treatment_adv:
+                    st.write(f"- **{t['treatment_name']}**: {t['description']}")
+
+            else:
+                st.write("No specific treatment match found.")
+
+            if fertilizer_adv:
+                st.write("### Recommended Fertilizers")
+                for f in fertilizer_adv:
+                    st.write(f"- **{f['fertilizer_name']} ({f['npk_ratio']})**: {f['notes']}")
+
+            else:
+                st.write("No fertilizer recommendation found.")
 
     # ---------------- SAVE BEST RESULT ----------------
     best = results[0]
@@ -103,4 +119,4 @@ if st.button("Run Diagnosis"):
         }
     )
 
-    st.success("Saved to diagnosis history.")
+    st.success("Saved to diagnosis history")
