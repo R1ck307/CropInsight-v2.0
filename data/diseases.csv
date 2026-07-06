@@ -1,11 +1,21 @@
-disease_id,name,affected_crop,symptoms,severity
-1,Maize Leaf Blight,Maize,Yellow leaf spots and drying,High
-2,Maize Rust,Maize,Orange pustules on leaves,Medium
-3,Rice Blast,Rice,Lesions on leaves and stems,Critical
-4,Cassava Mosaic Disease,Cassava,Leaf distortion and yellow patches,High
-5,Bean Rust,Beans,Rust-colored spots on leaves,Medium
-6,Tomato Late Blight,Tomato,Black lesions and rotting fruit,Critical
-7,Tomato Mosaic Virus,Tomato,Leaf mottling and curling,High
-8,Banana Fusarium Wilt,Banana,Wilting and yellow leaves,Critical
-9,Cotton Bollworm,Cotton,Chewed bolls and holes,High
-10,Coffee Leaf Rust,Coffee,Orange leaf powder spots,High
+disease_id,crop_name,disease_name,disease_type,severity,symptoms,cause,treatment,prevention
+1,Maize,Fall Armyworm,Pest,High,Holes in leaves;Frass in whorl;Damaged growing point,Spodoptera frugiperda,Apply recommended insecticides or biological control,Scout fields regularly and plant early
+2,Maize,Gray Leaf Spot,Fungal,High,Rectangular gray lesions;Leaf drying,Cercospora zeae-maydis,Apply fungicide and resistant varieties,Practice crop rotation
+3,Maize,Common Rust,Fungal,Medium,Orange-brown pustules;Yellow leaves,Puccinia sorghi,Apply fungicide if severe,Use resistant hybrids
+4,Maize,Northern Leaf Blight,Fungal,High,Long cigar-shaped lesions;Leaf blight,Exserohilum turcicum,Use fungicide and resistant varieties,Rotate crops
+5,Tomato,Early Blight,Fungal,High,Dark concentric spots;Yellowing leaves,Alternaria solani,Copper fungicide and remove infected leaves,Avoid overhead irrigation
+6,Tomato,Late Blight,Fungal,Very High,Water-soaked lesions;Fruit rot,Phytophthora infestans,Apply fungicide immediately,Improve air circulation
+7,Tomato,Fusarium Wilt,Fungal,High,Wilting;Yellowing;Stunted growth,Fusarium oxysporum,Use resistant varieties,Sterilize contaminated soil
+8,Tomato,Bacterial Wilt,Bacterial,Very High,Rapid wilting;Stem discoloration,Ralstonia solanacearum,Remove infected plants,Rotate crops
+9,Beans,Anthracnose,Fungal,High,Dark sunken lesions;Pod spots,Colletotrichum lindemuthianum,Apply fungicide,Use certified seed
+10,Beans,Rust,Fungal,Medium,Rust-colored spots;Leaf drying,Uromyces appendiculatus,Apply fungicide,Plant resistant varieties
+11,Beans,Angular Leaf Spot,Fungal,Medium,Angular brown spots,Phaeoisariopsis griseola,Apply fungicide,Crop rotation
+12,Rice,Rice Blast,Fungal,Very High,Diamond-shaped lesions;Neck rot,Magnaporthe oryzae,Use fungicide and resistant varieties,Avoid excess nitrogen
+13,Rice,Sheath Blight,Fungal,High,Oval lesions on leaf sheath,Rhizoctonia solani,Apply fungicide,Increase plant spacing
+14,Sorghum,Anthracnose,Fungal,High,Red lesions on leaves,Colletotrichum sublineola,Apply fungicide,Plant resistant cultivars
+15,Sorghum,Grain Mold,Fungal,Medium,Discolored moldy grain,Multiple fungi,Harvest early,Dry grain properly
+16,Cassava,Cassava Mosaic Disease,Viral,Very High,Mosaic leaves;Distorted growth,Cassava mosaic virus,Remove infected plants,Use virus-free cuttings
+17,Cassava,Cassava Brown Streak Disease,Viral,Very High,Brown root streaks;Leaf yellowing,CBS virus,Destroy infected plants,Use resistant varieties
+18,Banana,Black Sigatoka,Fungal,Very High,Black streaks;Leaf death,Pseudocercospora fijiensis,Apply fungicide,Remove infected leaves
+19,Banana,Panama Disease,Fungal,Very High,Yellowing;Plant collapse,Fusarium oxysporum f.sp. cubense,Destroy infected plants,Use resistant cultivars
+20,Groundnut,Leaf Spot,Fungal,Medium,Brown leaf spots,Cercospora arachidicola,Apply fungicide,Crop rotation
