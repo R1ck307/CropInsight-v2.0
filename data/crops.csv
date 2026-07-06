@@ -1,19 +1,21 @@
-crop_id,name,category,climate,common_regions
-1,Maize,Cereal,Tropical,Southern Africa
-2,Rice,Cereal,Humid Tropical,West Africa
-3,Sorghum,Cereal,Arid,East Africa
-4,Millet,Cereal,Dryland,Sahel
-5,Cassava,Root Crop,Tropical,Central Africa
-6,Yam,Root Crop,Tropical,West Africa
-7,Sweet Potato,Root Crop,Tropical,East Africa
-8,Groundnut,Legume,Subtropical,West Africa
-9,Beans,Legume,Temperate/Tropical,All regions
-10,Soybean,Legume,Temperate,South Africa
-11,Banana,Fruit,Tropical,Central Africa
-12,Plantain,Fruit,Humid Tropical,West Africa
-13,Tomato,Vegetable,Temperate/Tropical,All regions
-14,Onion,Vegetable,Dry/Subtropical,North Africa
-15,Cotton,Fibre,Hot Dry,East Africa
-16,Coffee,Industrial,Tropical highland,East Africa
-17,Tea,Industrial,Cool Highland,East Africa
-18,Sugarcane,Industrial,Tropical,South Africa
+crop_id,crop_name,scientific_name,category,growing_season,soil_type,water_requirement,sunlight_requirement,optimal_ph,min_temp,max_temp,maturity_days
+1,Maize,Zea mays,Cereal,Rainy Season,Loamy,Medium,Full Sun,6.0-7.5,18,35,120
+2,Rice,Oryza sativa,Cereal,Rainy Season,Clay Loam,High,Full Sun,5.5-6.5,20,35,150
+3,Wheat,Triticum aestivum,Cereal,Cool Season,Loamy,Medium,Full Sun,6.0-7.0,10,25,120
+4,Sorghum,Sorghum bicolor,Cereal,Rainy Season,Sandy Loam,Low,Full Sun,5.5-7.5,20,38,110
+5,Pearl Millet,Pennisetum glaucum,Cereal,Rainy Season,Sandy,Low,Full Sun,5.0-7.5,22,40,100
+6,Beans,Phaseolus vulgaris,Legume,Rainy Season,Loamy,Medium,Full Sun,6.0-7.0,16,30,90
+7,Cowpea,Vigna unguiculata,Legume,Rainy Season,Sandy Loam,Low,Full Sun,5.5-7.0,20,35,85
+8,Groundnut,Arachis hypogaea,Legume,Rainy Season,Sandy Loam,Medium,Full Sun,5.5-6.8,20,35,120
+9,Soybean,Glycine max,Legume,Rainy Season,Loamy,Medium,Full Sun,6.0-7.0,18,30,110
+10,Tomato,Solanum lycopersicum,Vegetable,All Year,Loamy,Medium,Full Sun,6.0-6.8,18,30,90
+11,Onion,Allium cepa,Vegetable,Cool Season,Loamy,Medium,Full Sun,6.0-7.0,13,28,120
+12,Cabbage,Brassica oleracea,Vegetable,Cool Season,Loamy,Medium,Full Sun,6.0-7.5,10,25,100
+13,Spinach,Spinacia oleracea,Vegetable,Cool Season,Loamy,Medium,Partial Sun,6.5-7.5,10,24,45
+14,Cassava,Manihot esculenta,Root Crop,All Year,Sandy Loam,Low,Full Sun,5.5-7.0,20,35,300
+15,Sweet Potato,Ipomoea batatas,Root Crop,All Year,Sandy Loam,Medium,Full Sun,5.5-6.5,20,35,120
+16,Yam,Dioscorea spp.,Root Crop,Rainy Season,Loamy,Medium,Partial Sun,5.5-6.5,20,32,240
+17,Banana,Musa spp.,Fruit,All Year,Loamy,High,Full Sun,5.5-7.0,20,35,300
+18,Mango,Mangifera indica,Fruit,All Year,Loamy,Medium,Full Sun,5.5-7.5,20,38,365
+19,Avocado,Persea americana,Fruit,All Year,Well-drained Loam,Medium,Full Sun,5.5-7.0,16,30,365
+20,Sugarcane,Saccharum officinarum,Cash Crop,All Year,Loamy,High,Full Sun,6.0-7.5,20,38,365
