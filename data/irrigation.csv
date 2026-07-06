@@ -1,1 +1,21 @@
-
+irrigation_id,crop_name,irrigation_method,watering_frequency,water_requirement,best_time,critical_growth_stage,notes
+1,Maize,Furrow,2-3 times per week,Medium,Early morning,Tasseling and grain filling,Avoid waterlogging
+2,Rice,Flood,Continuous shallow flooding,High,Morning,Tillering and flowering,Maintain 2-5 cm standing water
+3,Wheat,Sprinkler,2 times per week,Medium,Early morning,Heading and grain filling,Avoid over-irrigation
+4,Sorghum,Furrow,Once per week,Low,Morning,Flowering,Drought tolerant after establishment
+5,Pearl Millet,Furrow,Once per week,Low,Morning,Flowering,Requires minimal irrigation
+6,Beans,Drip,2 times per week,Medium,Morning,Flowering and pod filling,Keep foliage dry to reduce disease
+7,Cowpea,Drip,Once per week,Low,Morning,Flowering,Drought tolerant
+8,Groundnut,Drip,2 times per week,Medium,Morning,Flowering and pod development,Avoid excess moisture
+9,Soybean,Sprinkler,2-3 times per week,Medium,Morning,Flowering and pod filling,Ensure uniform watering
+10,Tomato,Drip,Daily or every 2 days,High,Early morning,Flowering and fruiting,Maintain consistent soil moisture
+11,Onion,Drip,2-3 times per week,Medium,Morning,Bulb formation,Reduce watering before harvest
+12,Cabbage,Sprinkler,3 times per week,High,Morning,Head formation,Do not allow soil to dry completely
+13,Spinach,Sprinkler,3-4 times per week,High,Morning,Leaf development,Frequent light watering is preferred
+14,Cassava,Rain-fed/Drip,Every 10-14 days if dry,Low,Morning,Root enlargement,Very drought tolerant
+15,Sweet Potato,Drip,2 times per week,Medium,Morning,Root development,Avoid excessive watering
+16,Yam,Furrow,2 times per week,Medium,Morning,Tuber development,Maintain moist soil
+17,Banana,Drip,Daily,High,Early morning,Fruit development,Requires consistent moisture
+18,Mango,Drip,Weekly,Medium,Morning,Fruit development,Reduce watering before harvest
+19,Avocado,Drip,2-3 times per week,Medium,Morning,Fruit set,Avoid prolonged drought
+20,Sugarcane,Furrow,Weekly,High,Morning,Grand growth stage,High water demand during rapid growth
