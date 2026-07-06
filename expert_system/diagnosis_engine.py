@@ -1,49 +1,68 @@
-from expert_system.rules import CROP_RULES
+from utils.knowledge_base import load_diseases
 
 
-def diagnose_crop(crop, symptoms_input):
+def diagnose_crop(crop_name, symptoms_input):
+    """
+    Diagnose a crop by comparing the user's symptoms
+    against diseases stored in diseases.csv.
 
-    if crop not in CROP_RULES:
-        return {
-            "disease": "Unknown",
-            "confidence": 0,
-            "treatment": "No data available",
-            "severity": "unknown"
-        }
+    Returns:
+        List of the top 3 matching diseases.
+    """
 
-    symptoms_input = [s.strip().lower() for s in symptoms_input.split(",")]
+    diseases = load_diseases()
 
-    best_match = None
-    best_score = 0
+    # Filter diseases for the selected crop
+    crop_diseases = diseases[
+        diseases["crop_name"].str.lower() == crop_name.lower()
+    ]
 
-    for disease, data in CROP_RULES[crop].items():
+    if crop_diseases.empty:
+        return []
 
-        matches = 0
+    # Convert user symptoms into a clean list
+    user_symptoms = [
+        s.strip().lower()
+        for s in symptoms_input.split(";")
+        if s.strip()
+    ]
 
-        for user_symptom in symptoms_input:
-            for known_symptom in data["symptoms"]:
-                if user_symptom in known_symptom:
-                    matches += 1
+    matches = []
 
-        score = matches / len(data["symptoms"])
+    for _, disease in crop_diseases.iterrows():
 
-        if score > best_score:
-            best_score = score
-            best_match = disease
+        disease_symptoms = [
+            s.strip().lower()
+            for s in disease["symptoms"].split(";")
+        ]
 
-    if best_match:
-        disease_data = CROP_RULES[crop][best_match]
+        matched = 0
 
-        return {
-            "disease": best_match,
-            "confidence": round(best_score * 100, 2),
-            "treatment": disease_data["treatment"],
-            "severity": disease_data["severity"]
-        }
+        for symptom in user_symptoms:
+            for known in disease_symptoms:
+                if symptom in known or known in symptom:
+                    matched += 1
+                    break
 
-    return {
-        "disease": "No match",
-        "confidence": 0,
-        "treatment": "Improve symptom description",
-        "severity": "low"
-    }
+        confidence = round(
+            (matched / len(disease_symptoms)) * 100,
+            1
+        )
+
+        if confidence > 0:
+            matches.append({
+                "disease": disease["disease_name"],
+                "confidence": confidence,
+                "severity": disease["severity"],
+                "type": disease["disease_type"],
+                "cause": disease["cause"],
+                "treatment": disease["treatment"],
+                "prevention": disease["prevention"]
+            })
+
+    matches.sort(
+        key=lambda x: x["confidence"],
+        reverse=True
+    )
+
+    return matches[:3]
