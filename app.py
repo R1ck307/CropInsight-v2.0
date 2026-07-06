@@ -4,6 +4,7 @@ from utils.knowledge_base import load_crops
 from expert_system.analytics_engine import get_total_diagnoses
 
 st.set_page_config(
+    apply_theme()
     page_title="CropInsight AI",
     page_icon="🌾",
     layout="wide"
