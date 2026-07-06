@@ -1,3 +1,6 @@
+from utils.auth import create_admin_if_not_exists
+
+create_admin_if_not_exists()
 import streamlit as st
 
 st.set_page_config(
