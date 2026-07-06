@@ -48,3 +48,4 @@ def answer_question(question: str):
     return (
         "I'm CropInsight AI. Ask me about crops, diseases, treatments, or fertilizers."
     )
+
