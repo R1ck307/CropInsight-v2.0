@@ -106,6 +106,20 @@ if st.button("Run AI Diagnosis"):
 
     # ---------------- SAVE BEST RESULT ----------------
     best = results[0]
+    report_text = generate_report(
+    user=user,
+    farm_name=farm_name,
+    crop=crop,
+    symptoms=symptoms,
+    diagnosis=best
+)
+
+st.download_button(
+    label="📄 Download Diagnosis Report",
+    data=report_text,
+    file_name="cropinsight_report.txt",
+    mime="text/plain"
+)
 
     save_diagnosis(
         user_id=user["id"],
