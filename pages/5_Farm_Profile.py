@@ -21,44 +21,39 @@ page_header(
 
 if "user" not in st.session_state:
 
-    st.warning(
-        "Please login first."
-    )
-
+    st.warning("Please login first.")
     st.stop()
 
 
 user = st.session_state["user"]
 
 
-
 # ---------------- CREATE FARM ----------------
 
-st.subheader(
-    "➕ Add New Farm"
-)
+st.subheader("➕ Add New Farm")
 
 
-with st.form("farm_form"):
+with st.form("farm_creation_form"):
 
     farm_name = st.text_input(
-        "Farm Name"
+        "🌱 Farm Name"
     )
 
 
     location = st.text_input(
-        "Location"
+        "📍 Location"
     )
 
 
-    size = st.number_input(
-        "Farm Size (hectares)",
-        min_value=0.0
+    size_hectares = st.number_input(
+        "📏 Farm Size (hectares)",
+        min_value=0.0,
+        step=0.5
     )
 
 
-    crop_type = st.text_input(
-        "Main Crop"
+    main_crop = st.text_input(
+        "🌾 Main Crop"
     )
 
 
@@ -69,37 +64,33 @@ with st.form("farm_form"):
 
     if submit:
 
-
         if farm_name.strip():
 
 
-            create_farm(
-
+            success, message = create_farm(
                 user_id=user["id"],
-
                 farm_name=farm_name,
-
                 location=location,
-
-                size=size,
-
-                crop_type=crop_type
-
+                size_hectares=size_hectares,
+                main_crop=main_crop
             )
 
 
-            st.success(
-                "Farm created successfully!"
-            )
+            if success:
 
+                st.success(message)
 
-            st.rerun()
+                st.rerun()
+
+            else:
+
+                st.error(message)
 
 
         else:
 
             st.error(
-                "Please enter a farm name."
+                "Farm name is required."
             )
 
 
@@ -121,29 +112,20 @@ farms = get_user_farms(
 )
 
 
-
-if farms is None or farms.empty:
-
+if farms.empty:
 
     st.info(
-        "No farms added yet."
+        "No farms registered yet."
     )
 
 
 else:
 
-
     for _, farm in farms.iterrows():
-
 
         with st.container():
 
-
-            st.markdown(
-                """
-                ---
-                """
-            )
+            st.markdown("---")
 
 
             col1, col2 = st.columns(2)
@@ -151,33 +133,30 @@ else:
 
             with col1:
 
-
                 st.subheader(
                     f"🌱 {farm['farm_name']}"
                 )
 
-
                 st.write(
-                    f"📍 Location: {farm.get('location','Unknown')}"
+                    f"📍 Location: {farm['location']}"
                 )
 
-
                 st.write(
-                    f"📏 Size: {farm.get('size','Unknown')} hectares"
+                    f"📏 Size: {farm['size_hectares']} hectares"
                 )
 
 
             with col2:
 
-
                 st.write(
                     "🌾 Main Crop"
                 )
 
-
                 st.success(
-                    farm.get(
-                        "crop_type",
-                        "Not specified"
-                    )
+                    farm['main_crop']
+                )
+
+
+                st.write(
+                    f"📅 Created: {farm['created_at']}"
                 )
