@@ -1,1 +1,16 @@
-
+soil_id,soil_type,texture,drainage,water_holding_capacity,ph_range,organic_matter,best_crops,notes
+1,Sandy,Coarse,Excellent,Low,5.5-7.0,Low,Groundnut;Watermelon;Cassava,Warms quickly but loses nutrients easily
+2,Sandy Loam,Moderately Coarse,Good,Moderate,5.5-7.2,Moderate,Maize;Cowpea;Sweet Potato,Well balanced for many African crops
+3,Loam,Medium,Good,High,6.0-7.5,High,Maize;Beans;Tomato;Cabbage;Onion,Ideal all-purpose agricultural soil
+4,Silt Loam,Fine,Moderate,High,6.0-7.5,High,Rice;Vegetables,Highly fertile but prone to erosion
+5,Clay,Fine,Poor,Very High,5.5-7.5,Moderate,Rice,Retains water well but drains slowly
+6,Clay Loam,Medium Fine,Moderate,High,6.0-7.5,High,Sugarcane;Rice;Maize,Excellent nutrient retention
+7,Red Soil,Medium,Good,Moderate,5.5-6.8,Moderate,Cassava;Groundnut;Maize,Common in many African regions
+8,Black Cotton Soil,Fine,Poor,Very High,7.0-8.5,High,Cotton;Sorghum,Can crack during dry seasons
+9,Volcanic Soil,Medium,Excellent,High,5.5-7.0,Very High,Coffee;Banana;Vegetables,Rich in minerals and highly fertile
+10,Peaty Soil,Organic,Poor,Very High,4.0-6.0,Very High,Vegetables after improvement,Requires drainage before cultivation
+11,Lateritic Soil,Medium,Fair,Moderate,5.0-6.5,Low,Cashew;Cassava,Often low in nutrients
+12,Alluvial Soil,Medium,Excellent,High,6.0-7.5,High,Rice;Sugarcane;Vegetables,Found near rivers and flood plains
+13,Chalky Soil,Medium,Good,Low,7.0-8.5,Low,Barley;Cabbage,Often requires organic matter
+14,Saline Soil,Fine,Poor,Moderate,7.5-9.0,Low,Limited salt-tolerant crops,Requires reclamation before most farming
+15,Well-Drained Loam,Medium,Excellent,High,5.8-7.2,High,Avocado;Mango;Citrus,Excellent for orchards
