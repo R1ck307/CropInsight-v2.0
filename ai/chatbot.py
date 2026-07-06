@@ -1,24 +1,50 @@
-from expert_system.rules import CROP_RULES
+from utils.knowledge_base import (
+    load_crops,
+    load_diseases,
+    load_treatments,
+    load_fertilizers
+)
 
 
-def get_general_advice(message: str):
+def answer_question(question: str):
+    """
+    Simple rule-based AI assistant using CropInsight knowledge base.
+    """
 
-    msg = message.lower()
+    q = question.lower()
 
-    # BASIC AGRICULTURE HELP RESPONSES
-    if "maize" in msg:
-        return "Maize needs good nitrogen supply and early pest control (especially fall armyworm)."
+    crops = load_crops()
+    diseases = load_diseases()
+    treatments = load_treatments()
+    fertilizers = load_fertilizers()
 
-    if "tomato" in msg:
-        return "Tomatoes require consistent watering and protection from fungal diseases like blight."
+    # ---------------- CROPS ----------------
+    if "crop" in q or "grow" in q:
+        return "We support crops like maize, rice, wheat, beans, tomatoes, cassava, bananas and more. Select a crop in the diagnosis page to begin."
 
-    if "bean" in msg:
-        return "Beans are sensitive to fungal diseases; use crop rotation and clean seeds."
+    # ---------------- DISEASES ----------------
+    if "disease" in q:
+        top = diseases["disease_name"].dropna().unique()[:5]
+        return f"Common diseases include: {', '.join(top)}."
 
-    if "disease" in msg:
-        return "Describe crop + symptoms clearly for diagnosis (e.g., maize, brown spots, yellow leaves)."
+    # ---------------- TREATMENTS ----------------
+    if "treat" in q or "medicine" in q:
+        top = treatments["treatment_name"].dropna().unique()[:5]
+        return f"Common treatments include: {', '.join(top)}."
 
-    if "fertilizer" in msg:
-        return "Use balanced NPK fertilizers depending on crop stage. Avoid over-fertilizing."
+    # ---------------- FERTILIZER ----------------
+    if "fertilizer" in q or "feed" in q:
+        top = fertilizers["fertilizer_name"].dropna().unique()[:5]
+        return f"Common fertilizers include: {', '.join(top)}."
 
-    return "I can help with crops, diseases, fertilizers, or symptoms. Try asking more specifically."
+    # ---------------- GENERAL HELP ----------------
+    if "help" in q:
+        return (
+            "I can help you with crop diseases, treatments, fertilizers, "
+            "and farming advice. Try asking about maize diseases or tomato care."
+        )
+
+    # ---------------- DEFAULT ----------------
+    return (
+        "I'm CropInsight AI. Ask me about crops, diseases, treatments, or fertilizers."
+    )
