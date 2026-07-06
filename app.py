@@ -1,4 +1,5 @@
 import streamlit as st
+from utils.theme import apply_theme
 from utils.knowledge_base import load_crops
 from expert_system.analytics_engine import get_total_diagnoses
 
