@@ -1,22 +1,43 @@
-from utils.auth import create_admin_if_not_exists
-
-create_admin_if_not_exists()
 import streamlit as st
+from utils.knowledge_base import load_crops
+from expert_system.analytics_engine import get_total_diagnoses
 
 st.set_page_config(
-    page_title="CropInsight v2",
+    page_title="CropInsight AI",
     page_icon="🌾",
     layout="wide"
 )
 
-if "logged_in" not in st.session_state:
-    st.session_state["logged_in"] = False
+st.title("🌾 CropInsight AI Platform")
 
-st.title("🌾 CropInsight v2")
+st.subheader("Smart Agricultural Decision Support System")
 
-if st.session_state["logged_in"]:
-    user = st.session_state["user"]
-    st.success(f"Logged in as {user['username']} ({user['role']})")
-    st.write("Welcome to the system 🚀")
-else:
-    st.warning("Please login from the Login page to continue.")
+# ---------------- STATS ----------------
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Supported Crops", len(load_crops()))
+
+with col2:
+    st.metric("Total Diagnoses", get_total_diagnoses())
+
+with col3:
+    st.metric("System Status", "Online 🟢")
+
+st.markdown("---")
+
+st.markdown("## 🚀 What CropInsight Does")
+
+st.write("""
+- 🧠 Detects crop diseases using AI-style reasoning
+- 💊 Recommends treatments and fertilizers
+- 🌾 Supports major African crops
+- 📊 Tracks farm health over time
+- 🤖 Provides AI farming assistance
+""")
+
+st.markdown("---")
+
+st.markdown("## 👈 Use the sidebar to navigate")
+
+st.info("Start with Diagnosis or Farm Profile to begin analyzing your crops.")
