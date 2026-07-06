@@ -1,20 +1,27 @@
 import streamlit as st
-from ai.chatbot import get_general_advice
+from ai.chatbot import answer_question
 
 st.title("🤖 CropInsight AI Assistant")
 
-if "user" not in st.session_state:
-    st.warning("Please login first")
-    st.stop()
+st.write("Ask anything about crops, diseases, fertilizers, or farming advice.")
 
-st.write("Ask anything about crops, diseases, fertilizers, or farming practices.")
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
-user_input = st.text_input("Your question")
+user_input = st.text_input("Your Question")
 
-if st.button("Ask AI"):
+if st.button("Ask"):
 
-    if user_input.strip() == "":
-        st.error("Please type a question")
+    if user_input.strip():
+
+        response = answer_question(user_input)
+
+        st.session_state.chat_history.append(("You", user_input))
+        st.session_state.chat_history.append(("AI", response))
+
+# ---------------- CHAT DISPLAY ----------------
+for role, msg in st.session_state.chat_history:
+    if role == "You":
+        st.markdown(f"🧑‍🌾 **You:** {msg}")
     else:
-        response = get_general_advice(user_input)
-        st.success(response)
+        st.markdown(f"🤖 **AI:** {msg}")
