@@ -1,1 +1,21 @@
-
+pest_id,pest_name,crop_name,pest_type,symptoms,damage,control_method,prevention,severity
+1,Fall Armyworm,Maize,Caterpillar,Holes in leaves;Frass in whorl,Eats leaves and growing point,Biological control or approved insecticide,Scout fields weekly,Very High
+2,Maize Stem Borer,Maize,Moth Larva,Holes in stems;Dead heart,Tunnels inside stems,Use resistant varieties and insecticides,Destroy crop residues,High
+3,Aphids,Tomato,Insect,Curled leaves;Sticky honeydew,Transmit plant viruses,Neem oil or insecticide,Control weeds and monitor regularly,Medium
+4,Whiteflies,Tomato,Insect,Yellow leaves;Sticky residue,Spread viral diseases,Yellow sticky traps and insecticides,Remove infected plants,High
+5,Tomato Fruitworm,Tomato,Caterpillar,Holes in fruit;Fruit damage,Eats developing fruit,Handpick larvae or apply Bt,Monitor crops regularly,High
+6,Bean Fly,Beans,Fly,Wilting seedlings;Stem tunneling,Reduces plant growth,Seed treatment and insecticide,Early planting,High
+7,Bean Aphid,Beans,Insect,Leaf curling;Honeydew,Sucks plant sap,Neem oil or biological control,Encourage beneficial insects,Medium
+8,Rice Stem Borer,Rice,Moth Larva,Dead heart;White heads,Tunnels inside stems,Apply recommended insecticides,Synchronize planting,High
+9,Rice Gall Midge,Rice,Fly,Silver shoots,Poor panicle formation,Resistant varieties,Field sanitation,Medium
+10,Sorghum Midge,Sorghum,Fly,Empty grains,Destroys developing grain,Timely insecticide application,Synchronize planting,Medium
+11,Termites,Cassava,Insect,Stem damage;Wilting,Feeds on roots and stems,Use appropriate termiticide,Remove dead wood around fields,Medium
+12,Cassava Mealybug,Cassava,Insect,Leaf curling;Stunted growth,Sucks plant sap,Biological control,Use clean planting material,High
+13,Banana Weevil,Banana,Beetle,Holes in corm;Weak plants,Damages root system,Trap adults and remove residues,Field sanitation,High
+14,Thrips,Onion,Insect,Silvery streaks on leaves,Reduces bulb size,Apply recommended insecticide,Avoid overcrowding,Medium
+15,Spider Mites,Tomato,Mite,Yellow speckled leaves;Webbing,Sucks leaf sap,Miticide or neem oil,Maintain adequate humidity,Medium
+16,Cutworms,Vegetables,Caterpillar,Cut seedlings at soil level,Destroys young plants,Protect seedlings and baiting,Keep field weed-free,High
+17,Root-Knot Nematodes,Vegetables,Nematode,Root galls;Poor growth,Damage root system,Crop rotation and resistant varieties,Solarize soil where possible,High
+18,Fruit Flies,Mango,Fly,Small punctures;Rotting fruit,Larvae feed inside fruit,Use bait traps and sanitation,Collect fallen fruit,High
+19,Citrus Psyllid,Citrus,Insect,Leaf curling;Yellow shoots,Spreads citrus greening disease,Monitor and apply insecticide,Use disease-free seedlings,Very High
+20,Coffee Berry Borer,Coffee,Beetle,Holes in coffee berries,Reduces coffee quality,Field sanitation and traps,Harvest on time,High
