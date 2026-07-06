@@ -1,18 +1,24 @@
 import streamlit as st
 
 from utils.theme import apply_theme, page_header
+
 from weather.weather_api import get_weather
 from weather.forecast import analyze_weather_risk
 
+from ai.risk_prediction import calculate_crop_risk
 
+
+# Apply theme
 apply_theme()
 
 
 page_header(
     "Weather Intelligence",
-    "Climate-based crop risk analysis"
+    "Climate-based crop risk analysis and AI prediction"
 )
 
+
+# ---------------- INPUTS ----------------
 
 location = st.text_input(
     "📍 Farm Location"
@@ -24,23 +30,30 @@ crop = st.text_input(
 )
 
 
-if st.button("Analyze Weather"):
+
+# ---------------- ANALYSIS ----------------
+
+if st.button("🌦 Analyze Weather"):
 
 
     if not location or not crop:
 
         st.warning(
-            "Enter location and crop."
+            "Please enter both location and crop."
         )
 
         st.stop()
 
 
 
+    # Get weather data
+
     weather = get_weather(
         location
     )
 
+
+    # Display weather
 
     st.subheader(
         "🌦 Current Conditions"
@@ -50,39 +63,49 @@ if st.button("Analyze Weather"):
     col1, col2, col3 = st.columns(3)
 
 
-    col1.metric(
-        "Temperature",
-        f"{weather['temperature']}°C"
-    )
+    with col1:
+
+        st.metric(
+            "Temperature",
+            f"{weather['temperature']}°C"
+        )
 
 
-    col2.metric(
-        "Humidity",
-        f"{weather['humidity']}%"
-    )
+    with col2:
+
+        st.metric(
+            "Humidity",
+            f"{weather['humidity']}%"
+        )
 
 
-    col3.metric(
-        "Rainfall",
-        f"{weather['rainfall']}mm"
-    )
+    with col3:
 
+        st.metric(
+            "Rainfall",
+            f"{weather['rainfall']}mm"
+        )
 
-    result = analyze_weather_risk(
-        weather,
-        crop
-    )
 
 
     st.divider()
 
 
-    st.subheader(
-        "⚠️ Crop Risk Analysis"
+
+    # Basic weather analysis
+
+    weather_result = analyze_weather_risk(
+        weather,
+        crop
     )
 
 
-    for risk in result["risks"]:
+    st.subheader(
+        "⚠️ Weather Analysis"
+    )
+
+
+    for risk in weather_result["risks"]:
 
         st.warning(
             risk
@@ -90,12 +113,106 @@ if st.button("Analyze Weather"):
 
 
     st.subheader(
-        "💡 Recommendations"
+        "💡 Weather Recommendations"
     )
 
 
-    for tip in result["advice"]:
+    for advice in weather_result["advice"]:
 
         st.success(
-            tip
+            advice
+        )
+
+
+
+    st.divider()
+
+
+
+    # AI crop risk prediction
+
+    st.subheader(
+        "🧠 AI Crop Risk Prediction"
+    )
+
+
+    prediction = calculate_crop_risk(
+        weather,
+        crop
+    )
+
+
+    st.metric(
+        "Risk Score",
+        f"{prediction['risk_score']}%"
+    )
+
+
+
+    risk_level = prediction["risk_level"]
+
+
+
+    if risk_level == "HIGH":
+
+        st.error(
+            "🚨 HIGH CROP RISK"
+        )
+
+
+    elif risk_level == "MEDIUM":
+
+        st.warning(
+            "⚠️ MEDIUM CROP RISK"
+        )
+
+
+    else:
+
+        st.success(
+            "✅ LOW CROP RISK"
+        )
+
+
+
+    st.subheader(
+        "⚠️ Risk Factors"
+    )
+
+
+    if prediction["warnings"]:
+
+        for warning in prediction["warnings"]:
+
+            st.write(
+                "•",
+                warning
+            )
+
+    else:
+
+        st.info(
+            "No major risk factors detected."
+        )
+
+
+
+    st.subheader(
+        "🌱 Preventive Actions"
+    )
+
+
+    if prediction["actions"]:
+
+        for action in prediction["actions"]:
+
+            st.write(
+                "•",
+                action
+            )
+
+    else:
+
+        st.info(
+            "No preventive actions required."
         )
