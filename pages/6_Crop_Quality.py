@@ -4,18 +4,20 @@ from utils.theme import apply_theme, page_header
 
 from ai.image_detection import analyze_image
 
+from expert_system.recommendation_engine import (
+    get_treatment_advice,
+    get_fertilizer_advice
+)
 
-# Apply theme
+
 apply_theme()
 
 
 page_header(
     "Crop Health Scanner",
-    "Upload a crop image and let AI identify possible diseases"
+    "AI image analysis with treatment recommendations"
 )
 
-
-# ---------------- IMAGE UPLOAD ----------------
 
 st.subheader(
     "📸 Upload Crop Image"
@@ -23,7 +25,7 @@ st.subheader(
 
 
 uploaded_image = st.file_uploader(
-    "Choose a leaf image",
+    "Choose a crop leaf image",
     type=[
         "png",
         "jpg",
@@ -31,9 +33,6 @@ uploaded_image = st.file_uploader(
     ]
 )
 
-
-
-# ---------------- CROP SELECTION ----------------
 
 crop = st.selectbox(
     "🌱 Select Crop",
@@ -47,22 +46,18 @@ crop = st.selectbox(
 
 
 
-# ---------------- ANALYSIS ----------------
-
-
 if uploaded_image:
 
 
     st.image(
         uploaded_image,
-        caption="Uploaded Crop Image",
+        caption="Uploaded Image",
         use_container_width=True
     )
 
 
-
     if st.button(
-        "🧠 Scan Image"
+        "🧠 Scan Crop"
     ):
 
 
@@ -73,12 +68,12 @@ if uploaded_image:
 
 
         st.success(
-            "Image analysis completed"
+            "AI analysis completed"
         )
 
 
         st.subheader(
-            "🔬 AI Detection Results"
+            "🔬 Disease Predictions"
         )
 
 
@@ -97,38 +92,79 @@ if uploaded_image:
             )
 
 
-            with st.container():
+            st.markdown("---")
 
 
-                st.markdown("---")
+            st.subheader(
+                f"🦠 {disease}"
+            )
 
 
-                st.subheader(
-                    f"🦠 {disease}"
-                )
+            st.progress(
+                confidence / 100
+            )
 
 
-                st.progress(
-                    confidence / 100
-                )
+            st.write(
+                f"🎯 Confidence: {confidence}%"
+            )
 
 
-                st.write(
-                    f"🎯 Confidence: {confidence}%"
-                )
+            # Treatment connection
+
+            st.subheader(
+                "💊 Recommended Treatment"
+            )
 
 
-                if confidence >= 75:
+            treatments = get_treatment_advice(
+                disease
+            )
 
-                    st.warning(
-                        "High possibility detected. Consider diagnosis confirmation."
+
+            if treatments:
+
+
+                for treatment in treatments:
+
+                    st.success(
+                        treatment.get(
+                            "treatment_name",
+                            "Follow recommended treatment"
+                        )
                     )
 
+            else:
 
-                else:
+                st.info(
+                    "No treatment data available."
+                )
 
-                    st.info(
-                        "Lower confidence prediction. Monitor crop closely."
+
+
+            # Fertilizer connection
+
+            st.subheader(
+                "🌱 Fertilizer Advice"
+            )
+
+
+            fertilizers = get_fertilizer_advice(
+                crop
+            )
+
+
+            if fertilizers:
+
+
+                for fertilizer in fertilizers:
+
+                    st.write(
+                        "🌿",
+                        fertilizer.get(
+                            "fertilizer_name",
+                            "General fertilizer"
+                        )
                     )
 
 
@@ -136,5 +172,5 @@ if uploaded_image:
 else:
 
     st.info(
-        "Upload an image to begin scanning."
-              )
+        "Upload a crop image to start analysis."
+    )
